@@ -1,0 +1,577 @@
+/* Premium SaaS Contact Section Styles */
+
+.contact-saas-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 64px auto 48px;
+  padding: 0 20px;
+  position: relative;
+  scroll-margin-top: 90px;
+}
+
+/* Floating Toast Notification */
+.contact-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: rgba(15, 23, 42, 0.92);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.28), 0 4px 12px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: contactToastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes contactToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.contact-toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+}
+
+.contact-toast-text {
+  letter-spacing: -0.01em;
+}
+
+/* Hero Header */
+.contact-hero-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(239, 246, 255, 0.9);
+  border: 1px solid rgba(191, 219, 254, 0.9);
+  color: #2563eb;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
+}
+
+.contact-badge-icon {
+  color: #2563eb;
+}
+
+.contact-hero-title {
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  margin: 0 0 12px 0;
+  line-height: 1.15;
+}
+
+.contact-title-accent {
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-hero-subtitle {
+  font-size: clamp(15px, 2vw, 17px);
+  color: #64748b;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-weight: 450;
+}
+
+/* 3-Card Responsive Grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 36px;
+}
+
+/* Glassmorphism Card Style */
+.contact-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 20px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -12px rgba(37, 99, 235, 0.12), 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+  border-color: rgba(147, 197, 253, 0.8);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.contact-card:hover::before {
+  opacity: 1;
+}
+
+/* Card Icons */
+.contact-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.project-icon {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+}
+
+.team-icon {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+  color: #4f46e5;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
+}
+
+.email-icon {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  color: #0284c7;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+}
+
+.contact-card:hover .contact-icon-box {
+  transform: scale(1.1) rotate(-3deg);
+}
+
+/* Card Content */
+.contact-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.02em;
+}
+
+.contact-card-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #64748b;
+  margin: 0 0 20px 0;
+  flex-grow: 1;
+}
+
+/* Tags in Card 1 */
+.contact-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.contact-tag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.contact-card:hover .contact-tag {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+/* Team List in Card 2 */
+.contact-team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: auto;
+}
+
+.contact-team-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(248, 250, 252, 0.8);
+  border: 1px solid rgba(241, 245, 249, 0.9);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-team-item:hover {
+  background: #f8fafc;
+  transform: translateX(3px);
+}
+
+.college-item {
+  background: rgba(238, 242, 255, 0.6);
+  border-color: rgba(224, 231, 255, 0.8);
+}
+
+.contact-emoji {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.contact-team-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-member-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.35;
+}
+
+.contact-member-role {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Email Box in Card 3 */
+.contact-email-box {
+  margin-top: auto;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.9) 0%, rgba(240, 249, 255, 0.9) 100%);
+  border: 1px solid rgba(191, 219, 254, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.contact-email-address {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1d4ed8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.contact-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #ffffff !important;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  transition: all 0.2s ease;
+}
+
+.contact-copy-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+.contact-copy-btn.copied {
+  background: #10b981;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Full-Width CTA Banner */
+.contact-cta-banner {
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.85) 0%, rgba(238, 242, 255, 0.85) 50%, rgba(245, 243, 255, 0.85) 100%);
+  border: 1px solid rgba(191, 219, 254, 0.85);
+  border-radius: 20px;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.contact-cta-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-cta-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.contact-cta-text {
+  font-size: 15px;
+  color: #1e3a8a;
+  line-height: 1.5;
+}
+
+.contact-cta-text strong {
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+.contact-send-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff !important;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none !important;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28);
+  transition: all 0.22s ease;
+  flex-shrink: 0;
+}
+
+.contact-send-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.38);
+}
+
+.contact-send-arrow {
+  opacity: 0.75;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.contact-send-btn:hover .contact-send-arrow {
+  opacity: 1;
+  transform: translateX(2px) translateY(-1px);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints (3 cols -> 2 cols -> 1 col)
+   ========================================================================== */
+
+@media (max-width: 990px) {
+  .contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-saas-container {
+    margin: 40px auto 32px;
+    padding: 0 16px;
+  }
+
+  .contact-hero-header {
+    margin-bottom: 28px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .contact-card {
+    padding: 24px 20px;
+    border-radius: 18px;
+  }
+
+  .contact-cta-banner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 20px;
+    gap: 18px;
+    border-radius: 18px;
+  }
+
+  .contact-cta-left {
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .contact-send-btn {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .contact-toast {
+    bottom: 20px;
+    right: 16px;
+    left: 16px;
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Dark Mode Compatibility (html.navbar-dark-mode)
+   ========================================================================== */
+
+html.navbar-dark-mode .contact-hero-title {
+  color: #f8fafc;
+}
+
+html.navbar-dark-mode .contact-title-accent {
+  background: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.navbar-dark-mode .contact-hero-subtitle {
+  color: #94a3b8;
+}
+
+html.navbar-dark-mode .contact-badge {
+  background: rgba(30, 58, 138, 0.4);
+  border-color: rgba(59, 130, 246, 0.4);
+  color: #93c5fd;
+}
+
+html.navbar-dark-mode .contact-badge-icon {
+  color: #60a5fa;
+}
+
+html.navbar-dark-mode .contact-card {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(51, 65, 85, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+html.navbar-dark-mode .contact-card:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(96, 165, 250, 0.6);
+  box-shadow: 0 20px 40px -12px rgba(37, 99, 235, 0.25);
+}
+
+html.navbar-dark-mode .contact-card-title {
+  color: #f1f5f9;
+}
+
+html.navbar-dark-mode .contact-card-description {
+  color: #94a3b8;
+}
+
+html.navbar-dark-mode .contact-tag {
+  background: rgba(15, 23, 42, 0.6);
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+html.navbar-dark-mode .contact-card:hover .contact-tag {
+  background: rgba(30, 58, 138, 0.5);
+  color: #93c5fd;
+  border-color: #3b82f6;
+}
+
+html.navbar-dark-mode .contact-team-item {
+  background: rgba(15, 23, 42, 0.5);
+  border-color: rgba(51, 65, 85, 0.6);
+}
+
+html.navbar-dark-mode .contact-team-item:hover {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+html.navbar-dark-mode .college-item {
+  background: rgba(30, 27, 75, 0.4);
+  border-color: rgba(67, 56, 202, 0.5);
+}
+
+html.navbar-dark-mode .contact-member-name {
+  color: #f1f5f9;
+}
+
+html.navbar-dark-mode .contact-member-role {
+  color: #94a3b8;
+}
+
+html.navbar-dark-mode .contact-email-box {
+  background: rgba(15, 23, 42, 0.7);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+html.navbar-dark-mode .contact-email-address {
+  color: #60a5fa;
+}
+
+html.navbar-dark-mode .contact-cta-banner {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+html.navbar-dark-mode .contact-cta-text {
+  color: #e2e8f0;
+}
+
+html.navbar-dark-mode .contact-cta-text strong {
+  color: #60a5fa;
+}
