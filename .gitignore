@@ -16,3 +16,4 @@ build/
 *.log
 
 tokens.txt
+server/uploads/
