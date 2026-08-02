@@ -316,7 +316,7 @@ const TeacherDashboard = () => {
                           
                           {p.reportFile && (
                             <a
-                              href={`http://localhost:5000/${p.reportFile}`}
+                              href={`https://open-repository-backend.onrender.com//${p.reportFile}`}
                               target="_blank"
                               rel="noreferrer"
                               className="teacher-btn-link"
@@ -328,7 +328,7 @@ const TeacherDashboard = () => {
                           
                           {p.sourceCodeFile && (
                             <a
-                              href={`http://localhost:5000/${p.sourceCodeFile}`}
+                              href={`https://open-repository-backend.onrender.com//${p.sourceCodeFile}`}
                               target="_blank"
                               rel="noreferrer"
                               className="teacher-btn-link"
@@ -413,7 +413,7 @@ const TeacherDashboard = () => {
                 <div style={{ display: 'flex', gap: 10, marginTop: 16, paddingTop: 16, borderTop: '1px solid #F1F5F9' }}>
                   {selectedProject.reportFile && (
                     <a
-                      href={`http://localhost:5000/${selectedProject.reportFile}`}
+                      href={`https://open-repository-backend.onrender.com//${selectedProject.reportFile}`}
                       target="_blank"
                       rel="noreferrer"
                       className="teacher-btn-review"
@@ -424,7 +424,7 @@ const TeacherDashboard = () => {
                   )}
                   {selectedProject.sourceCodeFile && (
                     <a
-                      href={`http://localhost:5000/${selectedProject.sourceCodeFile}`}
+                      href={`https://open-repository-backend.onrender.com//${selectedProject.sourceCodeFile}`}
                       target="_blank"
                       rel="noreferrer"
                       className="teacher-btn-link"

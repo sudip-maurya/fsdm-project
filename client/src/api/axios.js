@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://open-repository-backend.onrender.com/api',
 });
 
 // Automatically attach the token to every request if it exists

@@ -29,7 +29,7 @@ const Repository = () => {
     const fetchApproved = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:5000/api/projects/approved'
+          'https://open-repository-backend.onrender.com//api/projects/approved'
         );
         setProjects(res.data);
       } catch (err) {
@@ -340,7 +340,7 @@ const Repository = () => {
 
                   {p.reportFile && (
                     <a
-                      href={`http://localhost:5000/${p.reportFile}`}
+                      href={`https://open-repository-backend.onrender.com//${p.reportFile}`}
                       target="_blank"
                       rel="noreferrer"
                       className="repo-card-link report"
