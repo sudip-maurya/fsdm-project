@@ -45,6 +45,10 @@ const UploadProject = () => {
   };
 
   useEffect(() => {
+    API.get('/health').catch(() => {});
+  }, []);
+
+  useEffect(() => {
     API.get('/departments').then((res) => setDepartments(res.data));
   }, []);
 

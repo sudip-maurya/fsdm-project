@@ -26,6 +26,11 @@ app.get('/', (req, res) => {
   res.send('Open Repository Backend is Running 🚀');
 });
 
+// Health check / warm-up endpoint
+app.get(['/health', '/api/health'], (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 // Standard API Routes & Aliases (handles requests with or without /api prefix)
 app.use('/api/auth', authRoutes);
 app.use('/auth', authRoutes);

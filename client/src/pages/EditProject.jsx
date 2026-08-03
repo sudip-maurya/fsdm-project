@@ -33,6 +33,10 @@ const EditProject = () => {
   };
 
   useEffect(() => {
+    API.get('/health').catch(() => {});
+  }, []);
+
+  useEffect(() => {
     const loadData = async () => {
       const [projectRes, deptRes] = await Promise.all([
         API.get(`/projects/${id}`),
