@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Row, Col, Form } from 'react-bootstrap';
 import { FaSave, FaFolderOpen, FaChalkboardTeacher, FaLink, FaFileUpload } from 'react-icons/fa';
@@ -14,6 +14,23 @@ const EditProject = () => {
   const [sourceCodeFile, setSourceCodeFile] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  const reportInputRef = useRef(null);
+  const sourceCodeInputRef = useRef(null);
+
+  const handleRemoveReport = () => {
+    setReportFile(null);
+    if (reportInputRef.current) {
+      reportInputRef.current.value = '';
+    }
+  };
+
+  const handleRemoveSourceCode = () => {
+    setSourceCodeFile(null);
+    if (sourceCodeInputRef.current) {
+      sourceCodeInputRef.current.value = '';
+    }
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -183,11 +200,73 @@ const EditProject = () => {
           <Row>
             <Col md={6} style={{ marginBottom: 16 }}>
               <Label>Replace Report (PDF)</Label>
-              <Form.Control type="file" accept="application/pdf" onChange={(e) => setReportFile(e.target.files[0])} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Form.Control
+                  type="file"
+                  ref={reportInputRef}
+                  accept="application/pdf"
+                  onChange={(e) => setReportFile(e.target.files[0] || null)}
+                />
+                {reportFile && (
+                  <button
+                    type="button"
+                    onClick={handleRemoveReport}
+                    title="Remove selected report file"
+                    style={{
+                      border: 'none',
+                      background: '#ef4444',
+                      color: '#ffffff',
+                      borderRadius: '50%',
+                      width: 24,
+                      height: 24,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      fontSize: 12,
+                      fontWeight: 'bold',
+                      flexShrink: 0,
+                    }}
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
             </Col>
             <Col md={6} style={{ marginBottom: 4 }}>
               <Label>Replace Source Code (ZIP)</Label>
-              <Form.Control type="file" accept=".zip" onChange={(e) => setSourceCodeFile(e.target.files[0])} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Form.Control
+                  type="file"
+                  ref={sourceCodeInputRef}
+                  accept=".zip"
+                  onChange={(e) => setSourceCodeFile(e.target.files[0] || null)}
+                />
+                {sourceCodeFile && (
+                  <button
+                    type="button"
+                    onClick={handleRemoveSourceCode}
+                    title="Remove selected source code file"
+                    style={{
+                      border: 'none',
+                      background: '#ef4444',
+                      color: '#ffffff',
+                      borderRadius: '50%',
+                      width: 24,
+                      height: 24,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      fontSize: 12,
+                      fontWeight: 'bold',
+                      flexShrink: 0,
+                    }}
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
             </Col>
           </Row>
         </div>
