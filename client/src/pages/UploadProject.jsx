@@ -59,6 +59,7 @@ const UploadProject = () => {
       await API.post('/projects', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+      setError('');
       setSuccess('Project submitted successfully!');
       setTimeout(() => navigate('/student/dashboard'), 1500);
     } catch (err) {
@@ -81,9 +82,6 @@ const UploadProject = () => {
           Submit your academic project with all required details and supporting files.
         </p>
       </div>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
 
       <Form onSubmit={handleSubmit}>
         {/* Basic Information */}
@@ -185,6 +183,17 @@ const UploadProject = () => {
             </Col>
           </Row>
         </div>
+
+        {error && (
+          <p style={{ color: '#dc2626', fontWeight: 600, marginTop: 8, marginBottom: 12 }}>
+            {error}
+          </p>
+        )}
+        {success && (
+          <p style={{ color: '#16a34a', fontWeight: 600, marginTop: 8, marginBottom: 12 }}>
+            {success}
+          </p>
+        )}
 
         <div style={{ display: 'flex', gap: 12 }}>
           <button type="submit" className="save-btn">

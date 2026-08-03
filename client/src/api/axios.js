@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+const rawBaseURL = (process.env.REACT_APP_API_URL || 'https://open-repository-backend.onrender.com/api').trim().replace(/\/+$/, '');
+const baseURL = rawBaseURL.endsWith('/api') ? rawBaseURL : `${rawBaseURL}/api`;
+
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'https://open-repository-backend.onrender.com/api',
+  baseURL,
 });
 
 // Automatically attach the token to every request if it exists

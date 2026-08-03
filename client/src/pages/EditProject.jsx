@@ -65,6 +65,7 @@ const EditProject = () => {
       await API.put(`/projects/${id}`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+      setError('');
       setSuccess('Project updated successfully!');
       setTimeout(() => navigate('/student/dashboard'), 1500);
     } catch (err) {
@@ -89,9 +90,6 @@ const EditProject = () => {
           Update your project information and upload a new version if required.
         </p>
       </div>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
 
       <Form onSubmit={handleSubmit}>
         {/* Basic Information */}
@@ -193,6 +191,17 @@ const EditProject = () => {
             </Col>
           </Row>
         </div>
+
+        {error && (
+          <p style={{ color: '#dc2626', fontWeight: 600, marginTop: 8, marginBottom: 12 }}>
+            {error}
+          </p>
+        )}
+        {success && (
+          <p style={{ color: '#16a34a', fontWeight: 600, marginTop: 8, marginBottom: 12 }}>
+            {success}
+          </p>
+        )}
 
         <button type="submit" className="save-btn">
           <FaSave /> Save Changes

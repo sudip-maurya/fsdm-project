@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import API from '../api/axios';
 import StatusBadge from '../components/StatusBadge';
 import {
@@ -32,7 +33,13 @@ const Repository = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await API.get('/projects/approved');
+      let res;
+      try {
+        res = await API.get('/projects/approved');
+      } catch (firstErr) {
+        console.warn('API instance failed, retrying with direct URL...', firstErr);
+        res = await axios.get('https://open-repository-backend.onrender.com/api/projects/approved');
+      }
       console.log('API Response:', res.data);
       const data = Array.isArray(res.data)
         ? res.data
