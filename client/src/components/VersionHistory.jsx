@@ -54,7 +54,7 @@ const VersionHistory = ({ project }) => {
                 )}
                 {v.reportFile && (
                   <a
-                    href={`https://open-repository-backend.onrender.com//${v.reportFile}`}
+                    href={v.reportFile.startsWith('http') ? v.reportFile : `https://open-repository-backend.onrender.com/${v.reportFile.replace(/\\/g, '/')}`}
                     target="_blank"
                     rel="noreferrer"
                     className="teacher-btn-link"

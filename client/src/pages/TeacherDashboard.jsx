@@ -316,7 +316,7 @@ const TeacherDashboard = () => {
                           
                           {p.reportFile && (
                             <a
-                              href={`https://open-repository-backend.onrender.com//${p.reportFile}`}
+                              href={p.reportFile.startsWith('http') ? p.reportFile : `https://open-repository-backend.onrender.com/${p.reportFile.replace(/\\/g, '/')}`}
                               target="_blank"
                               rel="noreferrer"
                               className="teacher-btn-link"
@@ -328,7 +328,7 @@ const TeacherDashboard = () => {
                           
                           {p.sourceCodeFile && (
                             <a
-                              href={`https://open-repository-backend.onrender.com//${p.sourceCodeFile}`}
+                              href={p.sourceCodeFile.startsWith('http') ? p.sourceCodeFile : `https://open-repository-backend.onrender.com/${p.sourceCodeFile.replace(/\\/g, '/')}`}
                               target="_blank"
                               rel="noreferrer"
                               className="teacher-btn-link"
@@ -413,7 +413,7 @@ const TeacherDashboard = () => {
                 <div style={{ display: 'flex', gap: 10, marginTop: 16, paddingTop: 16, borderTop: '1px solid #F1F5F9' }}>
                   {selectedProject.reportFile && (
                     <a
-                      href={`https://open-repository-backend.onrender.com//${selectedProject.reportFile}`}
+                      href={selectedProject.reportFile.startsWith('http') ? selectedProject.reportFile : `https://open-repository-backend.onrender.com/${selectedProject.reportFile.replace(/\\/g, '/')}`}
                       target="_blank"
                       rel="noreferrer"
                       className="teacher-btn-review"
@@ -424,7 +424,7 @@ const TeacherDashboard = () => {
                   )}
                   {selectedProject.sourceCodeFile && (
                     <a
-                      href={`https://open-repository-backend.onrender.com//${selectedProject.sourceCodeFile}`}
+                      href={selectedProject.sourceCodeFile.startsWith('http') ? selectedProject.sourceCodeFile : `https://open-repository-backend.onrender.com/${selectedProject.sourceCodeFile.replace(/\\/g, '/')}`}
                       target="_blank"
                       rel="noreferrer"
                       className="teacher-btn-link"
