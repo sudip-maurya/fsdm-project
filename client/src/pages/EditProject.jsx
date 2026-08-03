@@ -213,22 +213,22 @@ const EditProject = () => {
                     onClick={handleRemoveReport}
                     title="Remove selected report file"
                     style={{
-                      border: 'none',
-                      background: '#ef4444',
-                      color: '#ffffff',
-                      borderRadius: '50%',
-                      width: 24,
-                      height: 24,
-                      display: 'flex',
+                      border: '1px solid #fca5a5',
+                      background: '#fee2e2',
+                      color: '#dc2626',
+                      borderRadius: '6px',
+                      padding: '4px 10px',
+                      display: 'inline-flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
+                      gap: 4,
                       cursor: 'pointer',
-                      fontSize: 12,
-                      fontWeight: 'bold',
+                      fontSize: '0.85rem',
+                      fontWeight: 600,
                       flexShrink: 0,
+                      whiteSpace: 'nowrap',
                     }}
                   >
-                    ✕
+                    ✕ Clear
                   </button>
                 )}
               </div>
@@ -248,22 +248,22 @@ const EditProject = () => {
                     onClick={handleRemoveSourceCode}
                     title="Remove selected source code file"
                     style={{
-                      border: 'none',
-                      background: '#ef4444',
-                      color: '#ffffff',
-                      borderRadius: '50%',
-                      width: 24,
-                      height: 24,
-                      display: 'flex',
+                      border: '1px solid #fca5a5',
+                      background: '#fee2e2',
+                      color: '#dc2626',
+                      borderRadius: '6px',
+                      padding: '4px 10px',
+                      display: 'inline-flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
+                      gap: 4,
                       cursor: 'pointer',
-                      fontSize: 12,
-                      fontWeight: 'bold',
+                      fontSize: '0.85rem',
+                      fontWeight: 600,
                       flexShrink: 0,
+                      whiteSpace: 'nowrap',
                     }}
                   >
-                    ✕
+                    ✕ Clear
                   </button>
                 )}
               </div>
