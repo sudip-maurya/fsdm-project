@@ -50,22 +50,24 @@ const Reports = () => {
       </div>
 
       <h4>Projects by Department</h4>
-      <table border="1" cellPadding="8" style={{ borderCollapse: 'collapse', width: '100%', maxWidth: 500 }}>
-        <thead>
-          <tr>
-            <th>Department</th>
-            <th>Project Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.departmentWise.map((d) => (
-            <tr key={d.department}>
-              <td>{d.department}</td>
-              <td>{d.count}</td>
+      <div className="table-responsive">
+        <table border="1" cellPadding="8" style={{ borderCollapse: 'collapse', width: '100%', maxWidth: 500 }}>
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th>Project Count</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.departmentWise.map((d) => (
+              <tr key={d.department}>
+                <td>{d.department}</td>
+                <td>{d.count}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

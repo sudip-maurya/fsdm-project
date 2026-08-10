@@ -20,6 +20,12 @@
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  .uni-hero {
+    padding: 24px 16px;
+  }
+}
+
 .uni-hero-badge {
   display: inline-flex;
   align-items: center;
@@ -35,7 +41,7 @@
 }
 
 .uni-hero-title {
-  font-size: 38px;
+  font-size: clamp(28px, 5vw, 38px);
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -48,7 +54,7 @@
 }
 
 .uni-hero-subtitle {
-  font-size: 20px;
+  font-size: clamp(16px, 3vw, 20px);
   font-weight: 700;
   color: #1e40af;
   margin: 0 0 16px 0;
@@ -164,8 +170,13 @@
 
 @media (max-width: 900px) {
   .uni-workflow-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+  }
+}
+@media (max-width: 560px) {
+  .uni-workflow-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -346,6 +357,11 @@
 }
 
 @media (max-width: 860px) {
+  .uni-purpose-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
   .uni-purpose-grid {
     grid-template-columns: 1fr;
   }

@@ -255,7 +255,7 @@ const TeacherDashboard = () => {
               </p>
             </div>
           ) : (
-            <div style={{ overflowX: 'auto' }}>
+            <div className="table-responsive">
               <table className="teacher-table">
                 <thead>
                   <tr>
