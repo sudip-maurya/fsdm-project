@@ -16,6 +16,7 @@ exports.createProject = async (req, res) => {
       keywords,
       githubLink,
       demoVideoLink,
+      projectLinkType,
     } = req.body;
 
     const project = await Project.create({
@@ -31,6 +32,7 @@ exports.createProject = async (req, res) => {
       keywords: keywords ? keywords.split(',').map(t => t.trim()) : [],
       githubLink,
       demoVideoLink,
+      projectLinkType,
       reportFile: req.files?.reportFile ? req.files.reportFile[0].path : null,
       sourceCodeFile: req.files?.sourceCodeFile ? req.files.sourceCodeFile[0].path : null,
       submittedBy: req.user.id,

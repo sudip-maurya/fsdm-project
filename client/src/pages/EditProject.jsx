@@ -14,6 +14,7 @@ const EditProject = () => {
   const [sourceCodeFile, setSourceCodeFile] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [linkError, setLinkError] = useState('');
 
   const reportInputRef = useRef(null);
   const sourceCodeInputRef = useRef(null);
@@ -56,6 +57,7 @@ const EditProject = () => {
         keywords: p.keywords?.join(', ') || '',
         githubLink: p.githubLink || '',
         demoVideoLink: p.demoVideoLink || '',
+        projectLinkType: p.projectLinkType || 'Demo Video Link',
       });
       setDepartments(deptRes.data);
     };
@@ -72,10 +74,26 @@ const EditProject = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateURL = (url) => {
+    if (!url) return true;
+    try {
+      new URL(url);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    setLinkError('');
+
+    if (formData.demoVideoLink && !validateURL(formData.demoVideoLink)) {
+      setLinkError('Please enter a valid URL (e.g., https://example.com)');
+      return;
+    }
 
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => data.append(key, value));
@@ -191,9 +209,56 @@ const EditProject = () => {
               <Label>GitHub Link</Label>
               <Form.Control name="githubLink" placeholder="https://github.com/..." value={formData.githubLink} onChange={handleChange} />
             </Col>
-            <Col md={6} style={{ marginBottom: 4 }}>
-              <Label>Demo Video</Label>
-              <Form.Control name="demoVideoLink" placeholder="https://..." value={formData.demoVideoLink} onChange={handleChange} />
+            <Col md={6} style={{ marginBottom: 16 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <Label>Live Link / Demo Video Link (Optional)</Label>
+              </div>
+              <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                <div 
+                  onClick={() => setFormData({ ...formData, projectLinkType: 'Live Project Link', demoVideoLink: '' })}
+                  style={{
+                    flex: 1,
+                    textAlign: 'center',
+                    padding: '8px',
+                    borderRadius: '6px',
+                    border: `1px solid ${formData.projectLinkType === 'Live Project Link' ? '#2563EB' : '#D1D5DB'}`,
+                    backgroundColor: formData.projectLinkType === 'Live Project Link' ? '#EFF6FF' : '#F9FAFB',
+                    color: formData.projectLinkType === 'Live Project Link' ? '#2563EB' : '#4B5563',
+                    cursor: 'pointer',
+                    fontWeight: formData.projectLinkType === 'Live Project Link' ? 600 : 400,
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  Live Project Link
+                </div>
+                <div 
+                  onClick={() => setFormData({ ...formData, projectLinkType: 'Demo Video Link', demoVideoLink: '' })}
+                  style={{
+                    flex: 1,
+                    textAlign: 'center',
+                    padding: '8px',
+                    borderRadius: '6px',
+                    border: `1px solid ${formData.projectLinkType === 'Demo Video Link' ? '#2563EB' : '#D1D5DB'}`,
+                    backgroundColor: formData.projectLinkType === 'Demo Video Link' ? '#EFF6FF' : '#F9FAFB',
+                    color: formData.projectLinkType === 'Demo Video Link' ? '#2563EB' : '#4B5563',
+                    cursor: 'pointer',
+                    fontWeight: formData.projectLinkType === 'Demo Video Link' ? 600 : 400,
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  Demo Video Link
+                </div>
+              </div>
+              <Form.Control 
+                name="demoVideoLink" 
+                placeholder={formData.projectLinkType === 'Live Project Link' ? 'https://your-live-project.com' : 'https://youtube.com/...'}
+                value={formData.demoVideoLink} 
+                onChange={handleChange} 
+                isInvalid={!!linkError}
+              />
+              <Form.Control.Feedback type="invalid" style={{ display: linkError ? 'block' : 'none' }}>
+                {linkError}
+              </Form.Control.Feedback>
             </Col>
           </Row>
         </div>

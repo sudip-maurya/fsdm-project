@@ -55,6 +55,11 @@ const projectSchema = new mongoose.Schema({
   demoVideoLink: {
     type: String,
   },
+  projectLinkType: {
+    type: String,
+    enum: ['Live Project Link', 'Demo Video Link'],
+    default: 'Demo Video Link',
+  },
   status: {
     type: String,
     enum: ['Pending', 'Approved', 'Needs Improvement', 'Rejected'],

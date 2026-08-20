@@ -12,6 +12,7 @@ import {
   BookOpen,
   Code2,
   Video,
+  Globe,
   FileDown,
   FolderSearch,
   RotateCcw,
@@ -436,9 +437,13 @@ const Repository = () => {
                         target="_blank"
                         rel="noreferrer"
                         className="repo-card-link demo"
-                        title="Watch Project Demo Video"
+                        title={p.projectLinkType === 'Live Project Link' ? 'View Live Project' : 'Watch Project Demo Video'}
                       >
-                        <Video size={14} /> Demo
+                        {p.projectLinkType === 'Live Project Link' ? (
+                          <><Globe size={14} /> Live Link</>
+                        ) : (
+                          <><Video size={14} /> Demo</>
+                        )}
                       </a>
                     )}
 
