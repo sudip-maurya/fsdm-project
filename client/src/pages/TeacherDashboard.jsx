@@ -409,6 +409,36 @@ const TeacherDashboard = () => {
                   </div>
                 </div>
 
+                {/* Live Project / Demo Video Link */}
+                {selectedProject.demoVideoLink && (
+                  <div className="teacher-meta-item" style={{ marginTop: 16 }}>
+                    <div className="teacher-meta-label">
+                      {selectedProject.projectLinkType === 'Live Project Link' ? 'LIVE PROJECT' : 'DEMO VIDEO'}
+                    </div>
+                    <a
+                      href={selectedProject.demoVideoLink.startsWith('http') ? selectedProject.demoVideoLink : `https://${selectedProject.demoVideoLink}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="teacher-btn-review"
+                      style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'space-between',
+                        textDecoration: 'none', 
+                        marginTop: 8, 
+                        padding: '10px 16px',
+                        width: '100%',
+                        boxSizing: 'border-box'
+                      }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600 }}>
+                        {selectedProject.projectLinkType === 'Live Project Link' ? '🌐 Open Live Project' : '▶ Open Demo Video'}
+                      </span>
+                      {selectedProject.projectLinkType === 'Live Project Link' && <span>↗</span>}
+                    </a>
+                  </div>
+                )}
+
                 {/* Quick File Downloads */}
                 <div style={{ display: 'flex', gap: 10, marginTop: 16, paddingTop: 16, borderTop: '1px solid #F1F5F9' }}>
                   {selectedProject.reportFile && (
