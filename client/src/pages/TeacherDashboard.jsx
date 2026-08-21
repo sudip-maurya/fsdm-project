@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import API from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import VersionHistory from '../components/VersionHistory';
@@ -36,6 +36,16 @@ const TeacherDashboard = () => {
   const [selectedDept, setSelectedDept] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [sortBy, setSortBy] = useState('newest');
+
+  const reviewSectionRef = useRef(null);
+
+  useEffect(() => {
+    if (selectedProject && reviewSectionRef.current) {
+      setTimeout(() => {
+        reviewSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [selectedProject]);
 
   const fetchProjects = async () => {
     try {
@@ -349,7 +359,7 @@ const TeacherDashboard = () => {
 
         {/* ===== REDESIGNED REVIEW PAGE / MODAL SECTION ===== */}
         {selectedProject && (
-          <div className="teacher-review-section">
+          <div className="teacher-review-section" ref={reviewSectionRef}>
             <div className="teacher-review-header">
               <h2 className="teacher-review-title">
                 Evaluating Submission
