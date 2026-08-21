@@ -27,6 +27,7 @@ const UploadProject = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [linkError, setLinkError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const reportInputRef = useRef(null);
@@ -89,6 +90,7 @@ const UploadProject = () => {
       return;
     }
 
+    setIsSubmitting(true);
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => data.append(key, value));
     if (reportFile) data.append('reportFile', reportFile);
@@ -103,6 +105,7 @@ const UploadProject = () => {
       setTimeout(() => navigate('/student/dashboard'), 1500);
     } catch (err) {
       setError(err.response?.data?.message || 'Submission failed');
+      setIsSubmitting(false);
     }
   };
 
@@ -135,11 +138,6 @@ const UploadProject = () => {
           <div style={{ marginBottom: 16 }}>
             <Label required>Abstract</Label>
             <Form.Control as="textarea" rows={2} name="abstract" value={formData.abstract} onChange={handleChange} required />
-          </div>
-
-          <div style={{ marginBottom: 16 }}>
-            <Label required>Description</Label>
-            <Form.Control as="textarea" rows={4} name="description" value={formData.description} onChange={handleChange} required />
           </div>
 
           <Row>
@@ -344,10 +342,10 @@ const UploadProject = () => {
         )}
 
         <div style={{ display: 'flex', gap: 12 }}>
-          <button type="submit" className="save-btn">
-            <FaSave /> Submit Project
+          <button type="submit" className="save-btn" disabled={isSubmitting}>
+            <FaSave /> {isSubmitting ? 'Submitting...' : 'Submit Project'}
           </button>
-          <button type="button" className="cancel-btn" onClick={() => navigate('/student/dashboard')}>
+          <button type="button" className="cancel-btn" onClick={() => navigate('/student/dashboard')} disabled={isSubmitting}>
             Cancel
           </button>
         </div>

@@ -145,11 +145,6 @@ const EditProject = () => {
             <Form.Control as="textarea" rows={2} name="abstract" value={formData.abstract} onChange={handleChange} required />
           </div>
 
-          <div style={{ marginBottom: 16 }}>
-            <Label required>Description</Label>
-            <Form.Control as="textarea" rows={4} name="description" value={formData.description} onChange={handleChange} required />
-          </div>
-
           <Row>
             <Col md={6} style={{ marginBottom: 16 }}>
               <Label required>Department</Label>

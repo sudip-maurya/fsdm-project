@@ -393,12 +393,67 @@ const TeacherDashboard = () => {
                       {selectedProject.department?.name || 'N/A'}
                     </div>
                   </div>
+                  <div className="teacher-meta-item" style={{ margin: 0, gridColumn: '1 / -1' }}>
+                    <div className="teacher-meta-label">Subject*</div>
+                    <div className="teacher-meta-value">
+                      <BookOpen size={13} style={{ display: 'inline', marginRight: 4, color: '#64748B' }} />
+                      {selectedProject.subject?.name || 'N/A'}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="teacher-meta-item">
                   <div className="teacher-meta-label">Current Version</div>
                   <div className="teacher-meta-value">
                     <span className="repo-tech-pill">v{selectedProject.currentVersion || '1.0'}</span>
+                  </div>
+                </div>
+
+                <div className="teacher-meta-item">
+                  <div className="teacher-meta-label" style={{ fontSize: '14px', color: '#1E293B', marginBottom: 12, borderBottom: '1px solid #E2E8F0', paddingBottom: 6 }}>
+                    <GraduationCap size={16} style={{ display: 'inline', marginRight: 6, color: '#2563EB', verticalAlign: 'middle' }} />
+                    Academic Information
+                  </div>
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
+                    <div className="teacher-meta-item" style={{ margin: 0 }}>
+                      <div className="teacher-meta-label">Academic Year</div>
+                      <div className="teacher-meta-value">{selectedProject.academicYear || 'N/A'}</div>
+                    </div>
+                    <div className="teacher-meta-item" style={{ margin: 0 }}>
+                      <div className="teacher-meta-label">Guide Name</div>
+                      <div className="teacher-meta-value">{selectedProject.guide || 'N/A'}</div>
+                    </div>
+                    {selectedProject.teamMembers && selectedProject.teamMembers.length > 0 && (
+                      <div className="teacher-meta-item" style={{ margin: 0, gridColumn: '1 / -1' }}>
+                        <div className="teacher-meta-label">Team Members</div>
+                        <div className="teacher-meta-value">
+                          {selectedProject.teamMembers.join(', ')}
+                        </div>
+                      </div>
+                    )}
+                    {selectedProject.technologies && selectedProject.technologies.length > 0 && (
+                      <div className="teacher-meta-item" style={{ margin: 0, gridColumn: '1 / -1' }}>
+                        <div className="teacher-meta-label">Technologies</div>
+                        <div className="teacher-meta-value">
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 4 }}>
+                            {selectedProject.technologies.map((tech, idx) => (
+                              <span key={idx} className="repo-tech-pill" style={{ background: '#EFF6FF', color: '#2563EB', padding: '4px 10px', borderRadius: '12px', fontSize: '12px', fontWeight: 600 }}>
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedProject.keywords && selectedProject.keywords.length > 0 && (
+                      <div className="teacher-meta-item" style={{ margin: 0, gridColumn: '1 / -1' }}>
+                        <div className="teacher-meta-label">Keywords</div>
+                        <div className="teacher-meta-value">
+                          {selectedProject.keywords.join(', ')}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
