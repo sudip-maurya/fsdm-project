@@ -1,4 +1,6 @@
 const Project = require('../models/Project');
+const { uploadToCloudinary } = require('../utils/cloudinary');
+const fs = require('fs');
 
 // Create a new project (student only)
 exports.createProject = async (req, res) => {
@@ -19,6 +21,33 @@ exports.createProject = async (req, res) => {
       projectLinkType,
     } = req.body;
 
+    let reportFile = req.files?.reportFile ? req.files.reportFile[0].path : null;
+    let sourceCodeFile = req.files?.sourceCodeFile ? req.files.sourceCodeFile[0].path : null;
+
+    if (reportFile) {
+      try {
+        const cloudUrl = await uploadToCloudinary(reportFile, 'reports');
+        if (cloudUrl && cloudUrl.startsWith('http')) {
+          try { fs.unlinkSync(reportFile); } catch (e) {}
+          reportFile = cloudUrl;
+        }
+      } catch (e) {
+        console.error('Cloudinary upload error for reportFile:', e);
+      }
+    }
+
+    if (sourceCodeFile) {
+      try {
+        const cloudUrl = await uploadToCloudinary(sourceCodeFile, 'source_code');
+        if (cloudUrl && cloudUrl.startsWith('http')) {
+          try { fs.unlinkSync(sourceCodeFile); } catch (e) {}
+          sourceCodeFile = cloudUrl;
+        }
+      } catch (e) {
+        console.error('Cloudinary upload error for sourceCodeFile:', e);
+      }
+    }
+
     const project = await Project.create({
       title,
       abstract,
@@ -33,8 +62,8 @@ exports.createProject = async (req, res) => {
       githubLink,
       demoVideoLink,
       projectLinkType,
-      reportFile: req.files?.reportFile ? req.files.reportFile[0].path : null,
-      sourceCodeFile: req.files?.sourceCodeFile ? req.files.sourceCodeFile[0].path : null,
+      reportFile,
+      sourceCodeFile,
       submittedBy: req.user.id,
     });
 
@@ -114,8 +143,33 @@ exports.updateProject = async (req, res) => {
     });
 
     Object.assign(project, req.body);
-    if (req.files?.reportFile) project.reportFile = req.files.reportFile[0].path;
-    if (req.files?.sourceCodeFile) project.sourceCodeFile = req.files.sourceCodeFile[0].path;
+    if (req.files?.reportFile) {
+      let rPath = req.files.reportFile[0].path;
+      try {
+        const cloudUrl = await uploadToCloudinary(rPath, 'reports');
+        if (cloudUrl && cloudUrl.startsWith('http')) {
+          try { fs.unlinkSync(rPath); } catch (e) {}
+          rPath = cloudUrl;
+        }
+      } catch (e) {
+        console.error('Cloudinary update report upload failed:', e);
+      }
+      project.reportFile = rPath;
+    }
+
+    if (req.files?.sourceCodeFile) {
+      let sPath = req.files.sourceCodeFile[0].path;
+      try {
+        const cloudUrl = await uploadToCloudinary(sPath, 'source_code');
+        if (cloudUrl && cloudUrl.startsWith('http')) {
+          try { fs.unlinkSync(sPath); } catch (e) {}
+          sPath = cloudUrl;
+        }
+      } catch (e) {
+        console.error('Cloudinary update sourceCode upload failed:', e);
+      }
+      project.sourceCodeFile = sPath;
+    }
 
     project.currentVersion += 1;
     project.status = 'Pending'; // goes back to review queue on resubmission
