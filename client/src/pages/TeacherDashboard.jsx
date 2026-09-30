@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
-import API from '../api/axios';
+import API, { getFileUrl } from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import VersionHistory from '../components/VersionHistory';
 import StatusBadge from '../components/StatusBadge';
@@ -326,7 +326,7 @@ const TeacherDashboard = () => {
                           
                           {p.reportFile && (
                             <a
-                              href={p.reportFile.startsWith('http') ? p.reportFile : `https://open-repository-backend.onrender.com/${p.reportFile.replace(/\\/g, '/')}`}
+                              href={getFileUrl(p.reportFile)}
                               target="_blank"
                               rel="noreferrer"
                               className="teacher-btn-link"
@@ -338,7 +338,7 @@ const TeacherDashboard = () => {
                           
                           {p.sourceCodeFile && (
                             <a
-                              href={p.sourceCodeFile.startsWith('http') ? p.sourceCodeFile : `https://open-repository-backend.onrender.com/${p.sourceCodeFile.replace(/\\/g, '/')}`}
+                              href={getFileUrl(p.sourceCodeFile)}
                               target="_blank"
                               rel="noreferrer"
                               className="teacher-btn-link"
@@ -508,7 +508,7 @@ const TeacherDashboard = () => {
                 <div style={{ display: 'flex', gap: 10, marginTop: 16, paddingTop: 16, borderTop: '1px solid #F1F5F9' }}>
                   {selectedProject.reportFile && (
                     <a
-                      href={selectedProject.reportFile.startsWith('http') ? selectedProject.reportFile : `https://open-repository-backend.onrender.com/${selectedProject.reportFile.replace(/\\/g, '/')}`}
+                      href={getFileUrl(selectedProject.reportFile)}
                       target="_blank"
                       rel="noreferrer"
                       className="teacher-btn-review"
@@ -519,7 +519,7 @@ const TeacherDashboard = () => {
                   )}
                   {selectedProject.sourceCodeFile && (
                     <a
-                      href={selectedProject.sourceCodeFile.startsWith('http') ? selectedProject.sourceCodeFile : `https://open-repository-backend.onrender.com/${selectedProject.sourceCodeFile.replace(/\\/g, '/')}`}
+                      href={getFileUrl(selectedProject.sourceCodeFile)}
                       target="_blank"
                       rel="noreferrer"
                       className="teacher-btn-link"

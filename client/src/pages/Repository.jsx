@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import API from '../api/axios';
+import API, { getFileUrl } from '../api/axios';
 import StatusBadge from '../components/StatusBadge';
 import {
   Search,
@@ -351,14 +351,7 @@ const Repository = () => {
                 ? p.technologies.split(',').map((t) => t.trim())
                 : [];
 
-              const reportUrl = p.reportFile
-                ? p.reportFile.startsWith('http')
-                  ? p.reportFile
-                  : `https://open-repository-backend.onrender.com/${p.reportFile.replace(
-                      /\\/g,
-                      '/'
-                    )}`
-                : null;
+              const reportUrl = getFileUrl(p.reportFile);
 
               return (
                 <div key={p._id || p.id} className="repo-card">

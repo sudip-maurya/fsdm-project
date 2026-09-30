@@ -10,11 +10,31 @@ const departmentRoutes = require('./routes/departmentRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 
+const path = require('path');
+const fs = require('fs');
+
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Uploads static directory safe path resolution
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Serve uploaded static files
+app.use('/uploads', express.static(uploadsDir));
+app.use('/api/uploads', express.static(uploadsDir));
+
+// Fallback to process.cwd() uploads directory if different (e.g. root run)
+const cwdUploadsDir = path.join(process.cwd(), 'uploads');
+if (cwdUploadsDir !== uploadsDir && fs.existsSync(cwdUploadsDir)) {
+  app.use('/uploads', express.static(cwdUploadsDir));
+  app.use('/api/uploads', express.static(cwdUploadsDir));
+}
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
@@ -53,8 +73,6 @@ app.use('/admin', adminRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/reports', reportRoutes);
 
-// Static folder
-app.use('/uploads', express.static('uploads'));
 
 // Express Error Handling Middleware for Multer and route errors
 app.use((err, req, res, next) => {

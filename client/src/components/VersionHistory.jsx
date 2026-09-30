@@ -1,5 +1,6 @@
 import StatusBadge from './StatusBadge';
 import { History, FileText, Calendar } from 'lucide-react';
+import { getFileUrl } from '../api/axios';
 
 const VersionHistory = ({ project }) => {
   if (!project?.versions || project.versions.length === 0) {
@@ -54,7 +55,7 @@ const VersionHistory = ({ project }) => {
                 )}
                 {v.reportFile && (
                   <a
-                    href={v.reportFile.startsWith('http') ? v.reportFile : `https://open-repository-backend.onrender.com/${v.reportFile.replace(/\\/g, '/')}`}
+                    href={getFileUrl(v.reportFile)}
                     target="_blank"
                     rel="noreferrer"
                     className="teacher-btn-link"
