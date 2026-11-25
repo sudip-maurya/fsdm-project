@@ -98,7 +98,9 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
-  if (process.env.RESEND_API_KEY) {
+  if (process.env.SENDGRID_API_KEY) {
+    console.log('SendGrid API key configured: Email delivery active via SendGrid HTTPS API');
+  } else if (process.env.RESEND_API_KEY) {
     console.log('Resend API key configured: Email delivery active via Resend HTTPS API');
   }
 

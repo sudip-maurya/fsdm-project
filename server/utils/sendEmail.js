@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 const { Resend } = require('resend');
 
 const transporter = nodemailer.createTransport({
@@ -16,12 +17,39 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendEmail = async (to, subject, html) => {
-  const fromAddress = process.env.RESEND_FROM || `"FSDM Project Repository" <${process.env.EMAIL_USER}>`;
+  // 1. SendGrid HTTPS API (Preferred)
+  if (process.env.SENDGRID_API_KEY) {
+    console.log(`[sendEmail] Using provider: SendGrid`);
+    try {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      const msg = {
+        to,
+        from: {
+          email: process.env.EMAIL_USER,
+          name: 'FSDM Project Repository',
+        },
+        subject,
+        html,
+      };
 
-  // If RESEND_API_KEY is configured, send via Resend HTTPS API
+      const [response] = await sgMail.send(msg);
+      console.log(`[SendGrid] Email sent successfully to: ${to} (Status: ${response?.statusCode})`);
+      return response;
+    } catch (error) {
+      const details = error.response?.body?.errors
+        ? JSON.stringify(error.response.body.errors)
+        : error.message || error;
+      console.error(`[SendGrid] Email error for ${to}:`, details);
+      throw new Error(`SendGrid error: ${details}`);
+    }
+  }
+
+  // 2. Resend HTTPS API (Fallback)
   if (process.env.RESEND_API_KEY) {
+    console.log(`[sendEmail] Using provider: Resend`);
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
+      const fromAddress = process.env.RESEND_FROM || `"FSDM Project Repository" <${process.env.EMAIL_USER}>`;
       const { data, error } = await resend.emails.send({
         from: fromAddress,
         to: Array.isArray(to) ? to : [to],
@@ -33,15 +61,16 @@ const sendEmail = async (to, subject, html) => {
         throw new Error(error.message || JSON.stringify(error));
       }
 
-      console.log(`[Resend] Email sent successfully to ${to} (ID: ${data?.id || 'unknown'})`);
+      console.log(`[Resend] Email sent successfully to: ${to} (ID: ${data?.id || 'unknown'})`);
       return data;
     } catch (error) {
-      console.error(`[Resend] send error for ${to}:`, error.message || error);
+      console.error(`[Resend] Email error for ${to}:`, error.message || error);
       throw error;
     }
   }
 
-  // Otherwise, use Nodemailer SMTP with IPv4
+  // 3. Nodemailer SMTP with IPv4 (Fallback)
+  console.log(`[sendEmail] Using provider: SMTP`);
   try {
     const info = await transporter.sendMail({
       from: `"FSDM Project Repository" <${process.env.EMAIL_USER}>`,
@@ -49,9 +78,10 @@ const sendEmail = async (to, subject, html) => {
       subject,
       html,
     });
+    console.log(`[SMTP] Email sent successfully to: ${to}`);
     return info;
   } catch (error) {
-    console.error(`[Nodemailer] sendMail error for ${to}:`, error.message || error);
+    console.error(`[SMTP] Email error for ${to}:`, error.message || error);
     throw error;
   }
 };
