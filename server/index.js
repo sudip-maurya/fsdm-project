@@ -9,6 +9,7 @@ const reportRoutes = require('./routes/reportRoutes');
 const departmentRoutes = require('./routes/departmentRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
 const projectRoutes = require('./routes/projectRoutes');
+const { transporter } = require('./utils/sendEmail');
 
 const path = require('path');
 const fs = require('fs');
@@ -96,4 +97,13 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+
+  // Verify SMTP connection on server startup
+  transporter.verify((error, success) => {
+    if (error) {
+      console.error('SMTP connection failed on startup:', error.message || error);
+    } else {
+      console.log('SMTP server is ready to take our messages');
+    }
+  });
 });

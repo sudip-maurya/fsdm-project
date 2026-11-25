@@ -168,10 +168,14 @@ exports.changePassword = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
+    console.log(`[Forgot-Password] Request received with email: ${email}`);
+
     const user = await User.findOne({ email });
     if (!user) {
+      console.log(`[Forgot-Password] User not found for email: ${email}`);
       return res.status(404).json({ message: 'No account found with that email' });
     }
+    console.log(`[Forgot-Password] User found: ${user.email}`);
 
     const resetToken = crypto.randomBytes(20).toString('hex');
     user.resetPasswordToken = resetToken;
@@ -180,18 +184,31 @@ exports.forgotPassword = async (req, res) => {
 
     const resetLink = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
 
-    await sendEmail(
-      user.email,
-      'Password Reset Request',
-      `<p>Hello ${user.name},</p>
+    // Return success response immediately without awaiting sendMail
+    res.json({ message: 'Password reset link sent to your email' });
+
+    // Send email in the background with try/catch
+    (async () => {
+      try {
+        console.log(`[Forgot-Password] Sending email started for: ${user.email}`);
+        await sendEmail(
+          user.email,
+          'Password Reset Request',
+          `<p>Hello ${user.name},</p>
        <p>You requested a password reset. Click the link below to reset your password (valid for 1 hour):</p>
        <p><a href="${resetLink}">${resetLink}</a></p>
        <p>If you didn't request this, you can ignore this email.</p>`
-    );
-
-    res.json({ message: 'Password reset link sent to your email' });
+        );
+        console.log(`[Forgot-Password] Email sent successfully to: ${user.email}`);
+      } catch (emailErr) {
+        console.error(`[Forgot-Password] Email error for ${user.email}:`, emailErr.message || emailErr, emailErr.stack || '');
+      }
+    })();
   } catch (err) {
-    res.status(500).json({ message: 'Server error', error: err.message });
+    console.error(`[Forgot-Password] Route error:`, err.message || err);
+    if (!res.headersSent) {
+      res.status(500).json({ message: 'Server error', error: err.message });
+    }
   }
 };
 
