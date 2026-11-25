@@ -182,7 +182,8 @@ exports.forgotPassword = async (req, res) => {
     user.resetPasswordExpires = Date.now() + 3600000;
     await user.save();
 
-    const resetLink = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
+    const frontendUrl = (process.env.FRONTEND_URL || process.env.CLIENT_URL || '').replace(/\/+$/, '');
+    const resetLink = `${frontendUrl}/#/reset-password?token=${resetToken}`;
 
     // Return success response immediately without awaiting sendMail
     res.json({ message: 'Password reset link sent to your email' });
